@@ -1,7 +1,6 @@
 package ec.webmarket.restful.api.v1;
 
 import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ec.webmarket.restful.common.ApiConstants;
+import ec.webmarket.restful.domain.Producto;
 import ec.webmarket.restful.dto.v1.ProductoDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
 import ec.webmarket.restful.service.crud.ProductoService;
@@ -56,6 +56,13 @@ public class ProductoController {
 	    return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
 
+	 @GetMapping("/{codigo}/archivo/codigo")
+	    public ResponseEntity<?> getProductoByCodigo(@PathVariable String codigo) {
+	        Producto productos = entityService.findByCodigo(codigo);
+	        return new ResponseEntity<>(productos, HttpStatus.OK);
+	    }
+	 
+	
 	@GetMapping("/{fechaCreacion}/archivo/fecha-creacion")
 	public ResponseEntity<?> getProductoByFechaCreacion(@PathVariable String fechaCreacion) {
 		LocalDate fecha = LocalDate.parse(fechaCreacion); // return
@@ -63,6 +70,8 @@ public class ProductoController {
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByFechaCreacion(fecha)),
 				HttpStatus.OK);
 	}
+	
+	
 	
 	@DeleteMapping("/{id}/archivo/id")
 	public ResponseEntity<?> deleteById(@Valid @PathVariable Long id) {

@@ -44,5 +44,9 @@ public class ProductoService extends GenericCrudServiceImpl<Producto, ProductoDT
 	public ProductoDTO mapToDto(Producto domain) {
 		return modelMapper.map(domain, ProductoDTO.class);
 	}
+	
+    public Producto findByCodigo(String codigo) {
+        return repository.findByCodigo(codigo);
+    }
 
 }
