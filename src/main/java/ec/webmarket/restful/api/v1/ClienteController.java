@@ -14,38 +14,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ec.webmarket.restful.common.ApiConstants;
-import ec.webmarket.restful.dto.v1.PaisDTO;
+import ec.webmarket.restful.dto.v1.ClienteDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
-import ec.webmarket.restful.service.crud.PaisService;
+import ec.webmarket.restful.service.crud.ClienteService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = { ApiConstants.URI_API_V1_PAIS })
-public class PaisController {
+@RequestMapping(value = { ApiConstants.URI_API_V1_CLIENTE })
+public class ClienteController {
 
 	@Autowired
-	private PaisService entityService;
+	private ClienteService entityService;
 
 	@GetMapping
 	public ResponseEntity<?> getAll() {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new PaisDTO())), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new ClienteDTO())), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody PaisDTO dto) {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.create(dto)), HttpStatus.CREATED);
+	public ResponseEntity<?> create(@Valid @RequestBody ClienteDTO dto) {
+	    try {
+	        ClienteDTO createdDto = entityService.create(dto);
+	        return new ResponseEntity<>(new ApiResponseDTO<>(true, createdDto), HttpStatus.CREATED);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "Error al crear el cliente: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 
 	@PutMapping
-	public ResponseEntity<?> update(@RequestBody PaisDTO dto) {
+	public ResponseEntity<?> update(@RequestBody ClienteDTO dto) {
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.update(dto)), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}/archivo/id")
 	public ResponseEntity<?> getById(@Valid @PathVariable Long id) {
-		PaisDTO dto = new PaisDTO();
-		dto.setId(id);
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
+	    if (id == null) {
+	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "El ID no debe ser nulo"), HttpStatus.BAD_REQUEST);
+	    }
+	    ClienteDTO dto = new ClienteDTO();
+	    dto.setId_cliente(id);
+	    return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
 
 	@GetMapping("/{fechaCreacion}/archivo/fecha-creacion")

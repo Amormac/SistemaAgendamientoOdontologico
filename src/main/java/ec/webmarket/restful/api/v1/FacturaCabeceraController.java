@@ -12,43 +12,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ec.webmarket.restful.common.ApiConstants;
-import ec.webmarket.restful.dto.v1.ProvinciaDTO;
+import ec.webmarket.restful.dto.v1.FacturaCabeceraDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
-import ec.webmarket.restful.service.crud.ProvinciaService;
+import ec.webmarket.restful.service.crud.FacturaCabeceraService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = { ApiConstants.URI_API_V1_PROVINCIA })
-public class ProvinciaController {
+@RequestMapping(value = { ApiConstants.URI_API_V1_FACTURA_CABECERA })
+public class FacturaCabeceraController {
 
 	@Autowired
-	private ProvinciaService entityService;
+	private FacturaCabeceraService entityService;
 
 	@GetMapping
 	public ResponseEntity<?> getAll() {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new ProvinciaDTO())),
+		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new FacturaCabeceraDTO())),
 				HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody ProvinciaDTO dto) {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.create(dto)), HttpStatus.CREATED);
+	public ResponseEntity<?> create(@Valid @RequestBody FacturaCabeceraDTO dto) {
+	    try {
+	        FacturaCabeceraDTO createdDto = entityService.create(dto);
+	        return new ResponseEntity<>(new ApiResponseDTO<>(true, createdDto), HttpStatus.CREATED);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "Error al crear el la factura: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 
 	@PutMapping
-	public ResponseEntity<?> update(@RequestBody ProvinciaDTO dto) {
+	public ResponseEntity<?> update(@RequestBody FacturaCabeceraDTO dto) {
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.update(dto)), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}/archivo/id")
 	public ResponseEntity<?> getById(@Valid @PathVariable Long id) {
-		ProvinciaDTO dto = new ProvinciaDTO();
-		dto.setId(id);
+		FacturaCabeceraDTO dto = new FacturaCabeceraDTO();
+		dto.setId_factura(id);
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
 
 	@GetMapping("/{paisId}/archivo/pais")
 	public ResponseEntity<?> getProvinciasByPais(@PathVariable Long paisId) {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByPais(paisId)), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByCliente(paisId)), HttpStatus.OK);
 	}
 }

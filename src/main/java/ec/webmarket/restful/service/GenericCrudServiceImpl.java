@@ -20,15 +20,31 @@ public abstract class GenericCrudServiceImpl<DOMAIN, DTO> implements GenericCrud
 
 	@Override
 	public DTO create(DTO dto) {
-		Optional<DOMAIN> optional = find(dto);
-		DOMAIN domainObjectResult = null;
-		if (optional.isEmpty()) {
-			DOMAIN domainObject = mapToDomain(dto);
-			domainObjectResult = repository.save(domainObject);
-		} else {
-			throw new ApiException(String.format("Registro ya existe"));
-		}
-		return mapToDto(domainObjectResult);
+	    // Establecer el ID en null para permitir la generación automática
+	    setIdToNull(dto);
+
+	    DOMAIN domainObject = mapToDomain(dto);
+	    DOMAIN domainObjectResult = repository.save(domainObject);
+	    return mapToDto(domainObjectResult);
+	}
+
+	private void setIdToNull(DTO dto) {
+	    try {
+	        // Obtener todos los campos de la clase DTO
+	        java.lang.reflect.Field[] fields = dto.getClass().getDeclaredFields();
+	        
+	        for (java.lang.reflect.Field field : fields) {
+	            // Verificar si el campo está anotado con @Id
+	            if (field.isAnnotationPresent(jakarta.persistence.Id.class)) {
+	                field.setAccessible(true);
+	                field.set(dto, null);
+	                break;
+	            }
+	        }
+	    } catch (IllegalAccessException e) {
+	        // Manejar la excepción si no se puede acceder al campo
+	        throw new ApiException("No se pudo establecer el ID en null");
+	    }
 	}
 
 	@Override
