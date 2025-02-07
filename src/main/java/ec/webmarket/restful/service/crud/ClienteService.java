@@ -8,13 +8,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ec.webmarket.restful.domain.Cliente;
+import ec.webmarket.restful.domain.Paciente;
 import ec.webmarket.restful.dto.v1.ClienteDTO;
 import ec.webmarket.restful.persistence.ClienteRepository;
 import ec.webmarket.restful.service.GenericCrudServiceImpl;
 
 @Service
-public class ClienteService extends GenericCrudServiceImpl<Cliente, ClienteDTO> {
+public class ClienteService extends GenericCrudServiceImpl<Paciente, ClienteDTO> {
 
 	@Autowired
 	private ClienteRepository repository;
@@ -22,15 +22,15 @@ public class ClienteService extends GenericCrudServiceImpl<Cliente, ClienteDTO> 
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
-	public Optional<Cliente> find(ClienteDTO dto) {
+	public Optional<Paciente> find(ClienteDTO dto) {
 		return repository.findById(dto.getId_cliente());
 	}
 
-	public List<Cliente> findByNombre(String nombre) {
+	public List<Paciente> findByNombre(String nombre) {
 		return repository.findByNombre(nombre);
 	}
 
-	public List<Cliente> findByFechaCreacion(LocalDate fechaCreacion) {
+	public List<Paciente> findByFechaCreacion(LocalDate fechaCreacion) {
 		return repository.findByFechaCreacion(fechaCreacion);
 	}
 
@@ -40,16 +40,16 @@ public class ClienteService extends GenericCrudServiceImpl<Cliente, ClienteDTO> 
 	}
 	
 	@Override
-	public Cliente mapToDomain(ClienteDTO dto) {
-		return modelMapper.map(dto, Cliente.class);
+	public Paciente mapToDomain(ClienteDTO dto) {
+		return modelMapper.map(dto, Paciente.class);
 	}
 
 	@Override
-	public ClienteDTO mapToDto(Cliente domain) {
+	public ClienteDTO mapToDto(Paciente domain) {
 		return modelMapper.map(domain, ClienteDTO.class);
 	}
 	
-	public Optional<Cliente> findByCedula(Long cedula) {
+	public Optional<Paciente> findByCedula(Long cedula) {
 	    return repository.findByCedula(cedula);
 	}
 

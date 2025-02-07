@@ -1,6 +1,5 @@
 package ec.webmarket.restful.domain;
 
-import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,31 +12,31 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Cliente {
+public class Odontologo {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    private Long id_cliente;
+    private Long id_odontologo;
     
     @Column(updatable = true, nullable = false, unique = true)
     private Long cedula;
     
-    @Column(length = 50, nullable = false)
+    @Column(updatable = true, length = 50, nullable = false)
     private String nombre;
     
-    @Column(nullable = false)
-    private LocalDate fechaNacimiento;
+    @Column(updatable = true, length = 50, nullable = false)
+    private String apellido;
+    
+    @Column(updatable = true, length = 50, nullable = false)
+    private String especialidad;
+    
     
     @Column(updatable = true, nullable = true, unique = false)
     private String telefono;
     
-    @Column(length = 100, nullable = true)
-    private String direccion;
     
-    @Column(length = 255, nullable = true) 
-    private String correo;
+    @Column(updatable = true, length = 255, nullable = true) 
+    private String email;
     
-    @Column(nullable = false)
-    private LocalDate fechaCreacion;
 }

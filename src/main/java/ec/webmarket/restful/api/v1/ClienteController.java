@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ec.webmarket.restful.common.ApiConstants;
-import ec.webmarket.restful.domain.Cliente;
+import ec.webmarket.restful.domain.Paciente;
 import ec.webmarket.restful.dto.v1.ClienteDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
 import ec.webmarket.restful.service.crud.ClienteService;
@@ -78,7 +78,7 @@ public class ClienteController {
 	
 	@GetMapping("/cedula/{cedula}")
 	public ResponseEntity<?> getClientePorCedula(@PathVariable Long cedula) {
-	    Optional<Cliente> cliente = entityService.findByCedula(cedula);
+	    Optional<Paciente> cliente = entityService.findByCedula(cedula);
 	    if (cliente.isPresent()) {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(true, cliente.get()), HttpStatus.OK);
 	    } else {

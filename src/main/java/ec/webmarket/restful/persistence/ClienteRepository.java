@@ -6,14 +6,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ec.webmarket.restful.domain.Cliente;
+import ec.webmarket.restful.domain.Paciente;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+public interface ClienteRepository extends JpaRepository<Paciente, Long> {
 
-	List<Cliente> findByNombre(String nombre);
+	List<Paciente> findByNombre(String nombre);
 
-	List<Cliente> findByFechaCreacion(LocalDate fechaCreacion);
+	List<Paciente> findByFechaCreacion(LocalDate fechaCreacion);
 	
-	Optional<Cliente> findByCedula(Long cedula);
+	Optional<Paciente> findByCedula(Long cedula);
 
 }

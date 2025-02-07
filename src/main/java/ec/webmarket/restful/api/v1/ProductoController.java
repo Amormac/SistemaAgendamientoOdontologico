@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ec.webmarket.restful.common.ApiConstants;
-import ec.webmarket.restful.domain.Producto;
+import ec.webmarket.restful.domain.Horario;
 import ec.webmarket.restful.dto.v1.ProductoDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
 import ec.webmarket.restful.service.crud.ProductoService;
@@ -58,7 +58,7 @@ public class ProductoController {
 
 	 @GetMapping("/{codigo}/archivo/codigo")
 	    public ResponseEntity<?> getProductoByCodigo(@PathVariable String codigo) {
-	        Producto productos = entityService.findByCodigo(codigo);
+	        Horario productos = entityService.findByCodigo(codigo);
 	        return new ResponseEntity<>(productos, HttpStatus.OK);
 	    }
 	 

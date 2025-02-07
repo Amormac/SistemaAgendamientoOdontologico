@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ec.webmarket.restful.domain.Producto;
+import ec.webmarket.restful.domain.Horario;
 
-public interface ProductoRepository extends JpaRepository<Producto, Long> {
+public interface ProductoRepository extends JpaRepository<Horario, Long> {
 
-	List<Producto> findByNombre(String nombre);
+	List<Horario> findByNombre(String nombre);
 
-	List<Producto> findByFechaCreacion(LocalDate fechaCreacion);
+	List<Horario> findByFechaCreacion(LocalDate fechaCreacion);
 	
-    Producto findByCodigo(String codigo);
+    Horario findByCodigo(String codigo);
 
 }
