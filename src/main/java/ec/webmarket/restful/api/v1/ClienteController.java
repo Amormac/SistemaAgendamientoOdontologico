@@ -1,6 +1,7 @@
 package ec.webmarket.restful.api.v1;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ec.webmarket.restful.common.ApiConstants;
+import ec.webmarket.restful.domain.Cliente;
 import ec.webmarket.restful.dto.v1.ClienteDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
 import ec.webmarket.restful.service.crud.ClienteService;
@@ -72,6 +74,17 @@ public class ClienteController {
 	    // Llamar al servicio para eliminar el cliente
 	    entityService.delete(dto);
 	    return new ResponseEntity<>(new ApiResponseDTO<Void>(true, null), HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/cedula/{cedula}")
+	public ResponseEntity<?> getClientePorCedula(@PathVariable Long cedula) {
+	    Optional<Cliente> cliente = entityService.findByCedula(cedula);
+	    if (cliente.isPresent()) {
+	        return new ResponseEntity<>(new ApiResponseDTO<>(true, cliente.get()), HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "No se encontró ningún cliente con la cédula proporcionada"), HttpStatus.NOT_FOUND
+	        );
+	    }
 	}
 
 }

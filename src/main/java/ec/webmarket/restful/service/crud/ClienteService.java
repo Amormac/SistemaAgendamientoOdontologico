@@ -48,5 +48,9 @@ public class ClienteService extends GenericCrudServiceImpl<Cliente, ClienteDTO> 
 	public ClienteDTO mapToDto(Cliente domain) {
 		return modelMapper.map(domain, ClienteDTO.class);
 	}
+	
+	public Optional<Cliente> findByCedula(Long cedula) {
+	    return repository.findByCedula(cedula);
+	}
 
 }
