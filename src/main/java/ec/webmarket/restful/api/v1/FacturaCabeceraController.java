@@ -52,9 +52,9 @@ public class FacturaCabeceraController {
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
 
-	@GetMapping("/{paisId}/archivo/pais")
-	public ResponseEntity<?> getProvinciasByPais(@PathVariable Long paisId) {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByCliente(paisId)), HttpStatus.OK);
+	@GetMapping("/{clienteId}/archivo/cliente")
+	public ResponseEntity<?> getFacturaCabeceraByCliente(@PathVariable Long clienteId) {
+		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByCliente(clienteId)), HttpStatus.OK);
 	}
 	
 }

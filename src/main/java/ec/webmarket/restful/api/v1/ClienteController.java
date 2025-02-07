@@ -58,7 +58,7 @@ public class ClienteController {
 	}
 
 	@GetMapping("/{fechaCreacion}/archivo/fecha-creacion")
-	public ResponseEntity<?> getPaisesByFechaCreacion(@PathVariable String fechaCreacion) {
+	public ResponseEntity<?> getClientesByFechaCreacion(@PathVariable String fechaCreacion) {
 		LocalDate fecha = LocalDate.parse(fechaCreacion); // return
 		entityService.findByFechaCreacion(fecha);
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByFechaCreacion(fecha)),
