@@ -35,6 +35,11 @@ public class ClienteService extends GenericCrudServiceImpl<Cliente, ClienteDTO> 
 	}
 
 	@Override
+	public void delete(ClienteDTO dto) {
+		repository.deleteById(dto.getId_cliente());
+	}
+	
+	@Override
 	public Cliente mapToDomain(ClienteDTO dto) {
 		return modelMapper.map(dto, Cliente.class);
 	}

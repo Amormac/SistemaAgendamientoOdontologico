@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,15 @@ public class ProductoController {
 		entityService.findByFechaCreacion(fecha);
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByFechaCreacion(fecha)),
 				HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id}/archivo/id")
+	public ResponseEntity<?> deleteById(@Valid @PathVariable Long id) {
+	   ProductoDTO dto = new ProductoDTO();
+	    dto.setId_producto(id);
+	    // Llamar al servicio para eliminar el producto
+	    entityService.delete(dto);
+	    return new ResponseEntity<>(new ApiResponseDTO<Void>(true, null), HttpStatus.NO_CONTENT);
 	}
 
 }
