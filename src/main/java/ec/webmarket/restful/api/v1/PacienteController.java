@@ -17,27 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ec.webmarket.restful.common.ApiConstants;
 import ec.webmarket.restful.domain.Paciente;
-import ec.webmarket.restful.dto.v1.ClienteDTO;
+import ec.webmarket.restful.dto.v1.PacienteDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
-import ec.webmarket.restful.service.crud.ClienteService;
+import ec.webmarket.restful.service.crud.PacienteService;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = { ApiConstants.URI_API_V1_CLIENTE })
-public class ClienteController {
+public class PacienteController {
 
 	@Autowired
-	private ClienteService entityService;
+	private PacienteService entityService;
 
 	@GetMapping
 	public ResponseEntity<?> getAll() {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new ClienteDTO())), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new PacienteDTO())), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<?> create(@Valid @RequestBody ClienteDTO dto) {
+	public ResponseEntity<?> create(@Valid @RequestBody PacienteDTO dto) {
 	    try {
-	        ClienteDTO createdDto = entityService.create(dto);
+	        PacienteDTO createdDto = entityService.create(dto);
 	        return new ResponseEntity<>(new ApiResponseDTO<>(true, createdDto), HttpStatus.CREATED);
 	    } catch (Exception e) {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "Error al crear el cliente: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,7 +45,7 @@ public class ClienteController {
 	}
 
 	@PutMapping
-	public ResponseEntity<?> update(@RequestBody ClienteDTO dto) {
+	public ResponseEntity<?> update(@RequestBody PacienteDTO dto) {
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.update(dto)), HttpStatus.OK);
 	}
 
@@ -54,37 +54,20 @@ public class ClienteController {
 	    if (id == null) {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "El ID no debe ser nulo"), HttpStatus.BAD_REQUEST);
 	    }
-	    ClienteDTO dto = new ClienteDTO();
+	    PacienteDTO dto = new PacienteDTO();
 	    dto.setId_cliente(id);
 	    return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
 
-	@GetMapping("/{fechaCreacion}/archivo/fecha-creacion")
-	public ResponseEntity<?> getClientesByFechaCreacion(@PathVariable String fechaCreacion) {
-		LocalDate fecha = LocalDate.parse(fechaCreacion); // return
-		entityService.findByFechaCreacion(fecha);
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findByFechaCreacion(fecha)),
-				HttpStatus.OK);
-	}
 	
 	@DeleteMapping("/{id}/archivo/id")
 	public ResponseEntity<?> deleteById(@Valid @PathVariable Long id) {
-	    ClienteDTO dto = new ClienteDTO();
+	    PacienteDTO dto = new PacienteDTO();
 	    dto.setId_cliente(id);
 	    // Llamar al servicio para eliminar el cliente
 	    entityService.delete(dto);
 	    return new ResponseEntity<>(new ApiResponseDTO<Void>(true, null), HttpStatus.NO_CONTENT);
 	}
 	
-	@GetMapping("/cedula/{cedula}")
-	public ResponseEntity<?> getClientePorCedula(@PathVariable Long cedula) {
-	    Optional<Paciente> cliente = entityService.findByCedula(cedula);
-	    if (cliente.isPresent()) {
-	        return new ResponseEntity<>(new ApiResponseDTO<>(true, cliente.get()), HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "No se encontró ningún cliente con la cédula proporcionada"), HttpStatus.NOT_FOUND
-	        );
-	    }
-	}
 
 }

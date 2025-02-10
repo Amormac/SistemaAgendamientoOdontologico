@@ -5,14 +5,14 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class ClienteDTO {
+public class PacienteDTO {
 	private Long id_cliente = null;
     private Long cedula;
     private String nombre;
-    private LocalDate fechaNacimiento;
+    private String apellido;
     private String telefono;
-    private String direccion;
     private String correo;
-    private LocalDate fechaCreacion;
+    private LocalDate fechaNacimiento;
+    private String direccion;
 }
 
