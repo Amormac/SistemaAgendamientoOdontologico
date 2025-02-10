@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class CitaDTO {
-    private Long id;
+    private Long id_cita = null;
     private Long pacienteId;
     private Long odontologoId;
     private Long horarioId;

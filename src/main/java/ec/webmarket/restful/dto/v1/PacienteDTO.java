@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class PacienteDTO {
-	private Long id_cliente = null;
+	private Long id_paciente = null;
     private Long cedula;
     private String nombre;
     private String apellido;

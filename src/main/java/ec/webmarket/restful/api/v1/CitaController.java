@@ -55,7 +55,7 @@ public class CitaController {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "El ID no debe ser nulo"), HttpStatus.BAD_REQUEST);
 	    }
 	    PacienteDTO dto = new PacienteDTO();
-	    dto.setId_cliente(id);
+	    dto.setId_paciente(id);
 	    return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
 
@@ -63,7 +63,7 @@ public class CitaController {
 	@DeleteMapping("/{id}/archivo/id")
 	public ResponseEntity<?> deleteById(@Valid @PathVariable Long id) {
 	    PacienteDTO dto = new PacienteDTO();
-	    dto.setId_cliente(id);
+	    dto.setId_paciente(id);
 	    // Llamar al servicio para eliminar el cliente
 	    entityService.delete(dto);
 	    return new ResponseEntity<>(new ApiResponseDTO<Void>(true, null), HttpStatus.NO_CONTENT);
