@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ec.webmarket.restful.common.ApiConstants;
-import ec.webmarket.restful.domain.Horario;
 import ec.webmarket.restful.dto.v1.OdontologoDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
 import ec.webmarket.restful.service.crud.OdontologoService;
@@ -52,15 +51,9 @@ public class OdontologoController {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "El ID no debe ser nulo"), HttpStatus.BAD_REQUEST);
 	    }
 	    OdontologoDTO dto = new OdontologoDTO();
-	    dto.setId_producto(id);
+	    dto.setId_odontologo(id);
 	    return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
-
-	 @GetMapping("/{codigo}/archivo/codigo")
-	    public ResponseEntity<?> getProductoByCodigo(@PathVariable String codigo) {
-	        Horario productos = entityService.findByCodigo(codigo);
-	        return new ResponseEntity<>(productos, HttpStatus.OK);
-	    }
 	 
 	
 	@GetMapping("/{fechaCreacion}/archivo/fecha-creacion")
@@ -76,7 +69,7 @@ public class OdontologoController {
 	@DeleteMapping("/{id}/archivo/id")
 	public ResponseEntity<?> deleteById(@Valid @PathVariable Long id) {
 	   OdontologoDTO dto = new OdontologoDTO();
-	    dto.setId_producto(id);
+	    dto.setId_odontologo(id);
 	    // Llamar al servicio para eliminar el producto
 	    entityService.delete(dto);
 	    return new ResponseEntity<>(new ApiResponseDTO<Void>(true, null), HttpStatus.NO_CONTENT);
