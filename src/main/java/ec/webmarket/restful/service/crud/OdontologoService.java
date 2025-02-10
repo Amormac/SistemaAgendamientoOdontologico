@@ -9,21 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ec.webmarket.restful.domain.Horario;
-import ec.webmarket.restful.dto.v1.ProductoDTO;
+import ec.webmarket.restful.dto.v1.OdontologoDTO;
 
-import ec.webmarket.restful.persistence.ProductoRepository;
+import ec.webmarket.restful.persistence.OdontologoRepository;
 import ec.webmarket.restful.service.GenericCrudServiceImpl;
 
 @Service
-public class ProductoService extends GenericCrudServiceImpl<Horario, ProductoDTO> {
+public class OdontologoService extends GenericCrudServiceImpl<Horario, OdontologoDTO> {
 
 	@Autowired
-	private ProductoRepository repository;
+	private OdontologoRepository repository;
 
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
-	public Optional<Horario> find(ProductoDTO dto) {
+	public Optional<Horario> find(OdontologoDTO dto) {
 		return repository.findById(dto.getId_producto());
 	}
 
@@ -36,13 +36,13 @@ public class ProductoService extends GenericCrudServiceImpl<Horario, ProductoDTO
 	}
 
 	@Override
-	public Horario mapToDomain(ProductoDTO dto) {
+	public Horario mapToDomain(OdontologoDTO dto) {
 		return modelMapper.map(dto, Horario.class);
 	}
 
 	@Override
-	public ProductoDTO mapToDto(Horario domain) {
-		return modelMapper.map(domain, ProductoDTO.class);
+	public OdontologoDTO mapToDto(Horario domain) {
+		return modelMapper.map(domain, OdontologoDTO.class);
 	}
 	
     public Horario findByCodigo(String codigo) {

@@ -15,5 +15,6 @@ public interface ClienteRepository extends JpaRepository<Paciente, Long> {
 	List<Paciente> findByFechaCreacion(LocalDate fechaCreacion);
 	
 	Optional<Paciente> findByCedula(Long cedula);
+	
 
 }

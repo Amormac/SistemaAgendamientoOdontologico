@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class ProductoDTO {
+public class OdontologoDTO {
 	    private Long id_producto = null;
 	    private String codigo;
 	    private String nombre;

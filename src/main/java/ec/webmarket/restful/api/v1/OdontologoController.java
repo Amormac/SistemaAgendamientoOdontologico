@@ -14,27 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ec.webmarket.restful.common.ApiConstants;
 import ec.webmarket.restful.domain.Horario;
-import ec.webmarket.restful.dto.v1.ProductoDTO;
+import ec.webmarket.restful.dto.v1.OdontologoDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
-import ec.webmarket.restful.service.crud.ProductoService;
+import ec.webmarket.restful.service.crud.OdontologoService;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = { ApiConstants.URI_API_V1_PRODUCTO })
-public class ProductoController {
+public class OdontologoController {
 
 	@Autowired
-	private ProductoService entityService;
+	private OdontologoService entityService;
 
 	@GetMapping
 	public ResponseEntity<?> getAll() {
-		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new ProductoDTO())), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.findAll(new OdontologoDTO())), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<?> create(@Valid @RequestBody ProductoDTO dto) {
+	public ResponseEntity<?> create(@Valid @RequestBody OdontologoDTO dto) {
 	    try {
-	        ProductoDTO createdDto = entityService.create(dto);
+	        OdontologoDTO createdDto = entityService.create(dto);
 	        return new ResponseEntity<>(new ApiResponseDTO<>(true, createdDto), HttpStatus.CREATED);
 	    } catch (Exception e) {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "Error al crear el producto: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -42,7 +42,7 @@ public class ProductoController {
 	}
 
 	@PutMapping
-	public ResponseEntity<?> update(@RequestBody ProductoDTO dto) {
+	public ResponseEntity<?> update(@RequestBody OdontologoDTO dto) {
 		return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.update(dto)), HttpStatus.OK);
 	}
 
@@ -51,7 +51,7 @@ public class ProductoController {
 	    if (id == null) {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "El ID no debe ser nulo"), HttpStatus.BAD_REQUEST);
 	    }
-	    ProductoDTO dto = new ProductoDTO();
+	    OdontologoDTO dto = new OdontologoDTO();
 	    dto.setId_producto(id);
 	    return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
@@ -75,7 +75,7 @@ public class ProductoController {
 	
 	@DeleteMapping("/{id}/archivo/id")
 	public ResponseEntity<?> deleteById(@Valid @PathVariable Long id) {
-	   ProductoDTO dto = new ProductoDTO();
+	   OdontologoDTO dto = new OdontologoDTO();
 	    dto.setId_producto(id);
 	    // Llamar al servicio para eliminar el producto
 	    entityService.delete(dto);
