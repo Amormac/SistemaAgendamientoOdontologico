@@ -23,12 +23,12 @@ public class CitaService extends GenericCrudServiceImpl<Paciente, PacienteDTO> {
 
 	@Override
 	public Optional<Paciente> find(PacienteDTO dto) {
-		return repository.findById(dto.getId_cliente());
+		return repository.findById(dto.getId_paciente());
 	}
 
 	@Override
 	public void delete(PacienteDTO dto) {
-		repository.deleteById(dto.getId_cliente());
+		repository.deleteById(dto.getId_paciente());
 	}
 	
 	@Override

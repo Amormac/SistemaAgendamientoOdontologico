@@ -1,8 +1,5 @@
 package ec.webmarket.restful.api.v1;
 
-import java.time.LocalDate;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ec.webmarket.restful.common.ApiConstants;
-import ec.webmarket.restful.domain.Paciente;
 import ec.webmarket.restful.dto.v1.PacienteDTO;
 import ec.webmarket.restful.security.ApiResponseDTO;
 import ec.webmarket.restful.service.crud.PacienteService;
@@ -55,7 +51,7 @@ public class PacienteController {
 	        return new ResponseEntity<>(new ApiResponseDTO<>(false, "El ID no debe ser nulo"), HttpStatus.BAD_REQUEST);
 	    }
 	    PacienteDTO dto = new PacienteDTO();
-	    dto.setId_cliente(id);
+	    dto.setId_paciente(id);
 	    return new ResponseEntity<>(new ApiResponseDTO<>(true, entityService.find(dto)), HttpStatus.OK);
 	}
 
@@ -63,7 +59,7 @@ public class PacienteController {
 	@DeleteMapping("/{id}/archivo/id")
 	public ResponseEntity<?> deleteById(@Valid @PathVariable Long id) {
 	    PacienteDTO dto = new PacienteDTO();
-	    dto.setId_cliente(id);
+	    dto.setId_paciente(id);
 	    // Llamar al servicio para eliminar el cliente
 	    entityService.delete(dto);
 	    return new ResponseEntity<>(new ApiResponseDTO<Void>(true, null), HttpStatus.NO_CONTENT);
