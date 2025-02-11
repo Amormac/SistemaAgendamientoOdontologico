@@ -1,6 +1,5 @@
 package ec.webmarket.restful.service.crud;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ec.webmarket.restful.domain.Cita;
 import ec.webmarket.restful.domain.Odontologo;
 import ec.webmarket.restful.dto.v1.OdontologoDTO;
 
@@ -22,17 +22,13 @@ public class OdontologoService extends GenericCrudServiceImpl<Odontologo, Odonto
 
 	private ModelMapper modelMapper = new ModelMapper();
 
+	public List<Cita> consultarCitas(OdontologoDTO odontologo){
+		return repository.consultarCitas(odontologo);
+	}
+	
 	@Override
 	public Optional<Odontologo> find(OdontologoDTO dto) {
-		return repository.findById(dto.getId_odontologo());
-	}
-
-	public List<Odontologo> findByNombre(String nombre) {
-		return repository.findByNombre(nombre);
-	}
-
-	public List<Odontologo> findByFechaCreacion(LocalDate fechaCreacion) {
-		return repository.findByFechaCreacion(fechaCreacion);
+	    throw new UnsupportedOperationException("El método find(OdontologoDTO) no está soportado en esta implementación.");
 	}
 
 	@Override
@@ -44,4 +40,5 @@ public class OdontologoService extends GenericCrudServiceImpl<Odontologo, Odonto
 	public OdontologoDTO mapToDto(Odontologo domain) {
 		return modelMapper.map(domain, OdontologoDTO.class);
 	}
+
 }

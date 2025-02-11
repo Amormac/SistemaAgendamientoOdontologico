@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import ec.webmarket.restful.domain.Horario;
 import ec.webmarket.restful.dto.v1.HorarioDTO;
+import ec.webmarket.restful.dto.v1.OdontologoDTO;
 import ec.webmarket.restful.persistence.HorarioRepository;
 import ec.webmarket.restful.service.GenericCrudServiceImpl;
 
@@ -23,16 +24,18 @@ public class HorarioService extends GenericCrudServiceImpl<Horario, HorarioDTO> 
 
 	@Override
 	public Optional<Horario> find(HorarioDTO dto) {
-		return repository.findById(dto.getId_horario());
+	    throw new UnsupportedOperationException("El método find(OdontologoDTO) no está soportado en esta implementación.");
+	}
+	
+	public List<Horario> findByOdontologo(OdontologoDTO dto){
+		return repository.findByOdontologo(dto);
+		
 	}
 
-	public List<Horario> findByNombre(String nombre) {
-		return repository.findByNombre(nombre);
+	public List<Horario> findByFecha(LocalDate fecha){
+		return repository.findByFecha(fecha);
 	}
 
-	public List<Horario> findByFechaCreacion(LocalDate fechaCreacion) {
-		return repository.findByFechaCreacion(fechaCreacion);
-	}
 
 	@Override
 	public Horario mapToDomain(HorarioDTO dto) {
